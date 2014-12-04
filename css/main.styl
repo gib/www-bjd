@@ -1,0 +1,260 @@
+@import "_nib"
+@import "_reset"
+@import "_fonts"
+
+/**
+ * Colors
+ */
+// Sections
+advertisements-color = #2FA2DA
+annual-reports-color = #e68237
+art-catalogs-color   = #a89987
+booklets-color       = #658ac6
+brochures-color      = #80b42f
+clients-color        = #ed6aa0
+contact-color        = #adb624
+identity-color       = #e9451f
+invitations-color    = #7375a2
+newsletters-color    = #e59918
+
+// Defaults
+home-color           = annual-reports-color
+text-color           = #222
+gray-text-color      = #6d6e72
+
+/**
+ * GENERAL ELEMENTS
+ */
+body
+  font-family 'AvenirNextRoundedW01-Re', Arial, Helvetica, sans-serif
+  font-size 13px
+
+.container
+  margin 50px auto 0 auto
+  max-width 2000px
+  min-width 680px
+
+a
+  color text-color
+  transition color 0.3s ease-in-out
+  text-decoration none
+  &.external
+    color gray-text-color
+
+h3
+  margin-bottom 1em;
+
+/**
+ * Logo
+ */
+.name
+  color text-color
+  font normal 30px 'AvenirNextRoundedW01-Re', Arial, Helvetica, sans-serif
+  margin-left 50px
+  position absolute
+  text-decoration none
+  z-index 10
+
+.name em
+  color home-color
+  font-size normal
+  padding-left 5px
+
+.name span
+  display inline-block
+  width 1px
+
+/**
+ * Navigation
+ */
+nav
+  color text-color
+  font normal 13px/20px 'AvenirNextRoundedW01-Re', Arial, Helvetica, sans-serif
+  position absolute
+  //margin 50px 0 0 50px
+  margin-left 50px
+  text-shadow 1px 1px 1px #fff
+  top 50%
+  transform translateY(-50%)
+  z-index 11
+
+  li
+    line-height 1.4em
+
+  @media screen and (max-height: 720px)
+    margin-top 80px
+    top auto
+    transform none
+
+  .sections
+    margin-bottom 50px
+
+nav a
+  color text-color
+  text-decoration none
+  // Nav hover reflects section color
+  &.advertisements
+    &:hover, &:focus
+      color advertisements-color
+  &.annual-reports
+    &:hover, &:focus
+      color annual-reports-color
+  &.art-catalogs
+    &:hover, &:focus
+      color art-catalogs-color
+  &.booklets
+    &:hover, &:focus
+      color booklets-color
+  &.brochures
+    &:hover, &:focus
+      color brochures-color
+  &.clients
+    &:hover, &:focus
+      color clients-color
+  &.contact
+    &:hover, &:focus
+      color contact-color
+  &.identity
+    &:hover, &:focus
+      color identity-color
+  &.invitations
+    &:hover, &:focus
+      color invitations-color
+  &.newsletters
+    &:hover, &:focus
+      color newsletters-color
+.subnav
+  height 0
+  max-width 155px
+  opacity 0
+  transition opacity 0.3s ease-in-out
+  visibility hidden
+  z-index 0
+  li
+    margin-bottom 5px
+  &.identity-subnav
+    max-width 200px
+
+.pages a
+  margin-right 10px
+
+/*============================================================
+ TEXT SELECTION
+============================================================*/
+::selection
+  background-color home-color
+  color white
+  text-shadow none
+::-moz-selection
+  background-color home-color
+  color white
+  text-shadow none
+
+/**
+ * Sections
+ */
+sections = advertisements annual-reports art-catalogs booklets clients contact home brochures identity invitations newsletters
+for section in sections
+  body.{section}
+    ::selection
+      background-color lookup('' + section + '-color')
+    ::-moz-selection
+      background-color lookup('' + section + '-color')
+    .name em
+      color lookup('' + section + '-color')
+    nav
+      a.{section}, .active
+        color lookup('' + section + '-color')
+    .{section}-subnav
+      height auto
+      visibility visible
+      opacity 1
+      z-index 10
+      a:focus, a:hover
+        color lookup('' + section + '-color')
+    .{section}-content
+      display block
+      a:focus, a:hover
+        color lookup('' + section + '-color')
+
+/**
+ * Content
+ */
+.content
+  background-color transparent
+  background-position center center
+  background-repeat no-repeat
+  background-size contain
+  -moz-background-size contain
+  -o-background-size  contain
+  display none
+  opacity 0
+  transition opacity 0.3s ease-in-out
+  p
+    margin-bottom 5px
+  svg
+    display none
+
+.content-page
+  background-color #e8e9eb
+  box-shadow 0 10px 20px -2px rgba(0,0,0,0.5), 0 6px 10px -5px rgba(0,0,0,1)
+  margin 20px auto 0
+  padding 35px 30px 30px
+  position relative
+  transform translateY(-50%)
+  top 50%
+  width 340px
+
+.content, svg
+  bottom 0
+  height 100%
+  position absolute
+  width 100%
+
+.paper
+  cursor normal
+  fill #fff
+  opacity 1
+  transition opacity 0.3s ease-in-out
+
+.paper:hover
+  opacity 0
+
+body.clients
+  .clients-content
+    opacity 1
+
+body.contact
+  .contact-content
+    opacity 1
+  .content-page
+    padding-top 50px
+    min-height 500px
+    p:last-child
+      bottom 20px
+      position absolute
+  .content img
+    display block
+    height 100px
+    margin-bottom 25px
+    width 100px
+  .content p
+    line-height 1.5em
+    margin-bottom 1.65em
+
+body.home
+  .home-content
+    background-image url("/images/books.jpg")
+    opacity 1
+
+body.advertisements,
+body.annual-reports,
+body.art-catalogs,
+body.booklets,
+body.brochures,
+body.identity,
+body.invitations,
+body.newsletters
+  .image-content
+    display block
+    opacity 1
