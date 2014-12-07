@@ -69,7 +69,7 @@ class SiteRouter extends Backbone.Router
     if _.contains([39, 76], event.keyCode)
       newPath = Site.pageUrls[next]
     # Route it
-    Site.router.navigate newPath, trigger: true
+    Site.router.navigate newPath, trigger: true if newPath?
 
 #
 # Init
