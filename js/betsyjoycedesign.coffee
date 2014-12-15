@@ -38,10 +38,10 @@ class SiteRouter extends Backbone.Router
     $("a[href^='/#{section}/#{subsection}']:not(.page), a.page[href='#{location.pathname}']").addClass 'active'
     $("a.page[href='#{location.pathname}']").closest('.subnav-parent').find('a').first().addClass 'active'
     Site.$image.one 'load', -> Site.$body.removeClass 'loading'
-    _.delay (=> _.once(=>
+    _.delay (=>
       Site.$body.removeClass 'loading'
       Site.$image.attr 'src', "/images#{location.pathname}.jpg"
-    )), 4000
+    ), 4000
     Site.$image.attr 'src', "/images#{location.pathname}.jpg"
 
   setStyle: (section) ->

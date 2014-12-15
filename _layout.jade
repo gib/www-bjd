@@ -12,10 +12,11 @@ html
     .container
       a.name(href='/') Be<span></span>t<span></span>sy<span></span>Joyce<em>design</em>
       nav!= partial('_nav')
-    .image-content.content
-      img
-    != partial('_contact')
-    != partial('_clients')
+    .nav-offset
+      .image-content.content
+        img
+      != partial('_contact')
+      != partial('_clients')
     != partial('_home')
     script(src='/js/zepto-underscore-backbone.js')
     script(src='/js/betsyjoycedesign.js')

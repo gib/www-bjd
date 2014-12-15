@@ -86,7 +86,7 @@ nav
   font normal 13px/20px 'AvenirNextRoundedW01-Re', Arial, Helvetica, sans-serif
   position absolute
   margin-left 50px
-  margin-top 80px
+  margin-top 130px
   text-shadow 1px 1px 1px #fff
   z-index 11
 
@@ -95,6 +95,9 @@ nav
 
   .sections
     margin-bottom 50px
+
+.nav-offset
+  margin-left 150px
 
 nav a
   color text-color
@@ -155,9 +158,13 @@ nav a
   background-size contain
   -moz-background-size contain
   -o-background-size  contain
+  bottom 0
   display none
+  height 100%
   opacity 0
+  position absolute
   transition opacity 0.3s ease-in-out
+  width calc(100% - 150px)
   p
     margin-bottom 5px
 
@@ -171,9 +178,10 @@ nav a
   top 50%
   width 340px
 
-.content, svg
+.home-content, svg
   bottom 0
   height 100%
+  margin-left 0
   position absolute
   width 100%
 
@@ -310,3 +318,11 @@ body.newsletters
     animation-delay 0.333s
   &:nth-of-type(3)
     animation-delay 0.666s
+
+.annual-reports
+  .image-content
+    height 85%
+    img
+      position static
+      transform none
+      top auto
