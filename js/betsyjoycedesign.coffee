@@ -33,15 +33,9 @@ class SiteRouter extends Backbone.Router
 
   sections: (section, subsection, page) ->
     Site.$body.removeClass(Site.sectionClasses).addClass(section)
-    Site.$body.addClass 'loading'
     $('.active').removeClass 'active'
     $("a[href^='/#{section}/#{subsection}']:not(.page), a.page[href='#{location.pathname}']").addClass 'active'
     $("a.page[href='#{location.pathname}']").closest('.subnav-parent').find('a').first().addClass 'active'
-    Site.$image.one 'load', -> Site.$body.removeClass 'loading'
-    _.delay (=>
-      Site.$body.removeClass 'loading'
-      Site.$image.attr 'src', "/images#{location.pathname}.jpg"
-    ), 4000
     Site.$image.attr 'src', "/images#{location.pathname}.jpg"
 
   setStyle: (section) ->
@@ -106,18 +100,3 @@ $ ->
   imgPages = Site.pageUrls.slice(1) # ignore '/'
   Site.pageUrls.push '/clients'
   Site.pageUrls.push '/contact'
-
-  # Prefetch all the portfolio images
-  $img = $ '<img>'
-  loadImage = (url) ->
-    console.log "Called loadImage", url, (new Date)
-    return if imgPages.length is 0
-    src = "/images#{url}.jpg"
-    $img.one 'load', ->
-      _.delay (-> loadImage imgPages.shift()), 1000
-    $img.src = src
-    if $img.get(0).complete # Cached?
-      $img.off 'load'
-      _.delay (-> loadImage imgPages.pop()), 1000
-  # KICK IT!
-  _.defer -> loadImage imgPages.shift()
