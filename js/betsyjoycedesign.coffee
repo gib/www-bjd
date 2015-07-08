@@ -24,23 +24,31 @@ class SiteRouter extends Backbone.Router
 
   home: ->
     @setStyle 'home'
+    @updateGoogleAnalytics()
 
   contact: ->
     @setStyle 'contact'
+    @updateGoogleAnalytics()
 
   clients: ->
     @setStyle 'clients'
+    @updateGoogleAnalytics()
 
   sections: (section, subsection, page) ->
     Site.$body.removeClass(Site.sectionClasses).addClass(section)
     $('.active').removeClass 'active'
-    $("a[href^='/#{section}/#{subsection}']:not(.page), a.page[href='#{location.pathname}']").addClass 'active'
+    $("a[href^='/#{section}/#{subsection}/']:not(.page), a.page[href='#{location.pathname}']").addClass 'active'
     $("a.page[href='#{location.pathname}']").closest('.subnav-parent').find('a').first().addClass 'active'
     Site.$image.attr 'src', "/images#{location.pathname}.jpg"
+    @updateGoogleAnalytics()
 
   setStyle: (section) ->
     $('.active').removeClass 'active'
     Site.$body.removeClass(Site.sectionClasses, 'loading').addClass section
+
+  updateGoogleAnalytics: ->
+    ga 'set', 'page', location.pathname
+    ga 'send', 'pageview'
 
   # Capture internal links
   linkHandler: (event) =>
@@ -88,8 +96,11 @@ $ ->
 
   # Kick of backbone to route this as a single page app
   Backbone.history.start pushState: true
-  # Run the current route's callback
-  Site.router.navigate location.pathname, trigger: true
+
+  # Run the current route's callback and check for trailing slash
+  path = location.pathname
+  path = path.substr(0, path.length - 1) if path.substr(-1) is '/'
+  Site.router.navigate path, trigger: true
 
   # Store pageUrls for preloading images and moving through the pages via keyboard
   $('nav .subnav a').each ->
